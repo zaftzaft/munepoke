@@ -1,0 +1,16 @@
+{
+  "name": "munepoke",
+  "version": "0.0.1",
+  "description": "Pocket TUI",
+  "main": "index.coffee",
+  "dependencies": {
+    "blessed": "^0.0.49",
+    "request": "^2.53.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
