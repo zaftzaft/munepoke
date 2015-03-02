@@ -38,6 +38,9 @@ module.exports = (blessed, screen, Munepoke) ->
   prompt.on "submit", ->
     cmd = prompt.getValue()
     Munepoke.interpreter cmd
+    prompt.clearValue()
+    hidePrompt()
+    screen.render()
 
   screen.key ":", ->
     showPrompt()
