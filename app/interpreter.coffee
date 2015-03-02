@@ -21,6 +21,11 @@ module.exports = (Munepoke) ->
       c = args[i]
 
       if /^(ge|get)!$/.test c
+        # scan cmd -> create query
+        # get {query},, false
+        break
+
+      else if match "ge#t", c
       else if match "un#read", c
       else if match "im#age", c
       else if match "vi#deo", c
