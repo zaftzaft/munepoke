@@ -14,6 +14,7 @@ module.exports = (blessed, screen, Munepoke) ->
   article.focus()
 
   Munepoke.buffer.on "change", (data) ->
+    article.clearItems()
     data.forEach (item) ->
       article.add item.resolved_title
     screen.render()
