@@ -14,16 +14,18 @@ match = (cmd, str) ->
 
 module.exports = (Munepoke) ->
   Munepoke.interpreter = (cmd) ->
-    cmd
-      .split " "
-      .forEach (c) ->
-        if match "ar#chive", c
-          get {}, (err, data) -> Munepoke.buffer.set data
+    args = cmd.split " "
+    i = 0
+    loop
+      c = args[i]
+      if match "ar#chive", c
+        get {}, (err, data) -> Munepoke.buffer.set data
 
-        else if match "ne#w", c
-          Munepoke.buffer.sort "new"
+      else if match "ne#w", c
+        Munepoke.buffer.sort "new"
 
-        else if match "ol#d", c
-          Munepoke.buffer.sort "old"
+      else if match "ol#d", c
+        Munepoke.buffer.sort "old"
 
+      break if ++i > args.length
 
