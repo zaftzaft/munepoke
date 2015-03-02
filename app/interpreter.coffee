@@ -26,13 +26,22 @@ module.exports = (Munepoke) ->
         break
 
       else if match "ge#t", c
+        get {}, (err, data) -> Munepoke.buffer.set data
+
       else if match "un#read", c
       else if match "im#age", c
       else if match "vi#deo", c
       else if match "fa#vorite", c
         Munepoke.buffer.filter favorite: "1"
         Munepoke.buffer.push()
+
       else if match "ti#tle", c
+        # simple
+        s = args[++i]
+        Munepoke.buffer.searchTitle s
+        Munepoke.buffer.push()
+
+
       else if match "ta#g", c
 
       else if match "ar#chive", c

@@ -24,6 +24,11 @@ class LocalBuffer extends EventEmitter
         return Boolean buf[k] is query[k] if bool
         buf[k] is query[k]
 
+  searchTitle: (str) ->
+    exp = new RegExp str
+    @localBuffer = @localBuffer.filter (buf) ->
+      exp.test buf.resolved_title
+
   push: -> @emit "change", @localBuffer
 
 
