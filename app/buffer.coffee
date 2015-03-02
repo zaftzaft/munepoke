@@ -6,15 +6,25 @@ class LocalBuffer extends EventEmitter
 
   set: (data) =>
     @localBuffer = data
-    @emit "change", @localBuffer
+    @push()
+    #@emit "change", @localBuffer
 
   sort: (compare) =>
     newOrder = (a, b) -> b.time_updated - a.time_updated 
     oldOrder = (a, b) -> a.time_updated - b.time_updated 
     @localBuffer.sort (if compare is "old" then oldOrder else newOrder)
-    @emit "change", @localBuffer
+    #@emit "change", @localBuffer
+    @push()
 
-  filter: (query) =>
+  filter: (query, bool = false) =>
+    qk = Object.keys query
+    l = qk.length
+    @localBuffer = @localBuffer.filter (buf) ->
+      qk.every (k) ->
+        return Boolean buf[k] is query[k] if bool
+        buf[k] is query[k]
+
+  push: -> @emit "change", @localBuffer
 
 
 module.exports = LocalBuffer

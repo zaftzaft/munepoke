@@ -30,6 +30,8 @@ module.exports = (Munepoke) ->
       else if match "im#age", c
       else if match "vi#deo", c
       else if match "fa#vorite", c
+        Munepoke.buffer.filter favorite: "1"
+        Munepoke.buffer.push()
       else if match "ti#tle", c
       else if match "ta#g", c
 
