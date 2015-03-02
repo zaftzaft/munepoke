@@ -31,9 +31,10 @@ status = blessed.Box
 
 screen.append status
 
-
+require("./interpreter") Munepoke
 require("./article") blessed, screen, Munepoke
 require("./prompt") blessed, screen, Munepoke
 
 
 screen.render()
+

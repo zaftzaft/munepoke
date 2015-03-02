@@ -1,10 +1,10 @@
 theme = require "./theme"
 
-module.exports = (blessed, screen) ->
+module.exports = (blessed, screen, Munepoke) ->
   showPrompt = ->
     promptLine.show()
     prompt.show()
-  
+
   hidePrompt = ->
     promptLine.hide()
     prompt.hide()
@@ -18,7 +18,7 @@ module.exports = (blessed, screen) ->
     content: ":"
   promptLine.hide()
   screen.append promptLine
-  
+
   prompt = blessed.Textbox
     #key: true
     #vi: true
@@ -34,6 +34,10 @@ module.exports = (blessed, screen) ->
     prompt.clearValue()
     hidePrompt()
     screen.render()
+
+  prompt.on "submit", ->
+    cmd = prompt.getValue()
+    Munepoke.interpreter cmd
 
   screen.key ":", ->
     showPrompt()

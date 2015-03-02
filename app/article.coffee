@@ -1,7 +1,7 @@
 theme = require "./theme"
-get = require "../lib/get"
+#get = require "../lib/get"
 
-module.exports = (blessed, screen) ->
+module.exports = (blessed, screen, Munepoke) ->
   article = blessed.List
     bg: theme.article.bg
     selectedFg: "light-blue"
@@ -13,7 +13,12 @@ module.exports = (blessed, screen) ->
 
   article.focus()
 
-  get {count: 3}, (err, result) ->
-    result.forEach (item) ->
+  Munepoke.buffer.on "change", (data) ->
+    data.forEach (item) ->
       article.add item.resolved_title
     screen.render()
+
+#  get {count: 3}, (err, result) ->
+#    result.forEach (item) ->
+#      article.add item.resolved_title
+#    screen.render()
