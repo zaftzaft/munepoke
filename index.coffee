@@ -13,6 +13,7 @@ fs.exists paths.token, (exists) ->
   unless exists
     auth (err, result) ->
       throw err if err
+      console.log "Complete!!"
       fs.writeFile paths.token, JSON.stringify(result), ->
         do launcher
 
