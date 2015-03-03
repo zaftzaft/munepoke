@@ -25,15 +25,17 @@ class Cache
 
   add: (item) =>
     #TODO same check
-    #if ~@keys.indexOf item.item_id
-    # orgItem = @getById item.item_id
-    # x = @check orgItem, item
-    # y = @check item, orgItem
-    # if x is y
-    #   same
-    # else if x
-    #   update
-    # else trash
+    if ~@keys.indexOf item.item_id
+      orgItem = @getById item.item_id
+      x = @check orgItem, item
+      y = @check item, orgItem
+      if x is y
+        return false
+      else if x
+        @removeById item.item_id
+      else
+        return false
+
     @keys.push item.item_id
     @collection.push item
 
@@ -42,7 +44,11 @@ class Cache
 
   getById: (id) =>
     item for item in @collection when item.item_id is id
-    null
+    return item || null
+
+  removeById: (id) =>
+    for i in @collection when item.item_id is id
+      @collection.splice i ,1
 
   set: (data) =>
     data.forEach (item) => @add item
@@ -58,6 +64,7 @@ class Cache
     @flowFn.forEach (cb) -> cb()
 
   check: (item, item2) =>
+    return 0 if item is null || item2 is null
     if item.time_added < item2.time_added or 
       item.time_updated < item2.time_updated or 
       item.time_read < item2.time_read or 

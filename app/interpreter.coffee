@@ -21,6 +21,9 @@ module.exports = (Munepoke) ->
       c = args[i]
 
       if /^(ge|get)!$/.test c
+        get {count: 10}, (err, data) ->
+          Munepoke.buffer.set data
+        , false
         # scan cmd -> create query
         # get {query},, false
         break
