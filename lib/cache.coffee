@@ -47,8 +47,8 @@ class Cache
     return item || null
 
   removeById: (id) =>
-    for i in @collection when item.item_id is id
-      @collection.splice i ,1
+    for item, i in @collection by -1 when item.item_id is id
+      @collection.splice i, 1
 
   set: (data) =>
     data.forEach (item) => @add item
