@@ -1,5 +1,5 @@
 theme = require "./theme"
-#get = require "../lib/get"
+openUrl = require "./open-url"
 
 module.exports = (blessed, screen, Munepoke) ->
   article = blessed.List
@@ -11,15 +11,14 @@ module.exports = (blessed, screen, Munepoke) ->
     top: 1
   screen.append article
 
+  article.on "select", (item) ->
+    openUrl item.data.resolved_url
+
   article.focus()
 
   Munepoke.buffer.on "change", (data) ->
     article.clearItems()
     data.forEach (item) ->
       article.add item.resolved_title
+      article.items.slice(-1)[0].data = item
     screen.render()
-
-#  get {count: 3}, (err, result) ->
-#    result.forEach (item) ->
-#      article.add item.resolved_title
-#    screen.render()
