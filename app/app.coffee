@@ -22,6 +22,11 @@ blessed.Node::query = (id) ->
 screen = blessed.Screen()
 screen.key ["q", "C-c"], -> process.exit 0
 
+Munepoke.clean = ->
+  screen.lines.forEach (line) ->
+    for x in [0..screen.width - 1]
+      line[x] = [0, ""]
+
 status = blessed.Box
   bg: theme.status.bg
   fg: theme.status.fg
@@ -30,6 +35,9 @@ status = blessed.Box
   height: 1
 
 screen.append status
+
+Munepoke.log = (mes) ->
+  status.setContent "" + mes
 
 require("./interpreter") Munepoke
 require("./article") blessed, screen, Munepoke
