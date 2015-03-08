@@ -13,9 +13,22 @@ module.exports = (blessed, screen, Munepoke) ->
   screen.append article
 
   article.on "select", (item) ->
+    article.hide()
+    Munepoke.clean()
+    screen.render()
+
     el = detail blessed, item.data
     screen.append el
     screen.render()
+
+    el.focus()
+    el.key "c", ->
+      screen.remove el
+      Munepoke.clean()
+      screen.render()
+      article.show()
+      article.focus()
+      screen.render()
     #openUrl item.data.resolved_url
 
   article.focus()

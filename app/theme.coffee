@@ -14,3 +14,14 @@ module.exports =
 
   article:
     bg: "black"
+
+  detail:
+    bg: "black"
+    statusBg: "black"
+    titleBg: "black"
+    titleFg: "light-white"
+    urlBg: "black"
+    urlFg: "light-blue"
+    excerptBg: "black"
+    excerptFg: "white"
+
