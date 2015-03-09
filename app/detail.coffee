@@ -16,7 +16,10 @@ module.exports = (blessed, item) ->
 
   status.setContent(
     "{yellow-fg}#{item.favorite}{/yellow-fg}
-    {green-fg}#{item.status}{/green-fg}"
+    {green-fg}#{item.status}{/green-fg}
+    i[#{Object.keys(item.images || {}).length}]
+    v[#{Object.keys(item.videos || {}).length}]
+    "
   )
 
   title = blessed.Box
@@ -47,6 +50,7 @@ module.exports = (blessed, item) ->
     "f: Favorite"
     "dd: Delete"
     "t: Tag Mode"
+    "i: Image"
     "o: Open"
     "c: Close"
   ]

@@ -39,7 +39,7 @@ module.exports = (blessed, screen, Munepoke) ->
     Munepoke.clean()
     screen.render()
     data.forEach (item) ->
-      article.add item.resolved_title
+      article.add item.resolved_title || item.resolved_url
       article.items.slice(-1)[0].data = item
     article.show()
     screen.render()

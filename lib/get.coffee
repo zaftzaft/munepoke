@@ -11,6 +11,17 @@ get = (options, callback) ->
     limit.update headers
     callback null, data
 
+latestTime = (callback) ->
+  cache.get {}, (exi, data) ->
+    callback data.reduce (big, item) ->
+      Math.max(
+        big,
+        item.time_added, item.time_updated,
+        item.time_read,item.time_favorited
+      )
+    , 0
+
+
 module.exports = (options, callback, useCache = true) ->
   fetch = ->
     get options, (err, data) ->
@@ -27,3 +38,4 @@ module.exports = (options, callback, useCache = true) ->
     else
       do fetch
 
+module.exports.latestTime = latestTime

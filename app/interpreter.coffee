@@ -21,11 +21,15 @@ module.exports = (Munepoke) ->
       c = args[i]
 
       if /^(ge|get)!$/.test c
-        get {count: 10}, (err, data) ->
+        get {count: 10, detailType: "complete"}, (err, data) ->
           Munepoke.buffer.set data
         , false
+
         # scan cmd -> create query
         # get {query},, false
+        break
+
+      else if match "sy#nc", c
         break
 
       else if match "ge#t", c
