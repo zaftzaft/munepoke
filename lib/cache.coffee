@@ -24,7 +24,6 @@ class Cache
     fs.writeFile @fp, JSON.stringify @collection
 
   add: (item) =>
-    #TODO same check
     if ~@keys.indexOf item.item_id
       orgItem = @getById item.item_id
       x = @check orgItem, item
@@ -35,16 +34,17 @@ class Cache
         @removeById item.item_id
       else
         return false
+    else
+      @keys.push item.item_id
 
-    @keys.push item.item_id
     @collection.push item
 
   get: (options, callback) =>
     @flow => callback true, @collection
 
   getById: (id) =>
-    item for item in @collection when item.item_id is id
-    return item || null
+    ret = item for item in @collection when item.item_id is id
+    return ret || null
 
   removeById: (id) =>
     for item, i in @collection by -1 when item.item_id is id
@@ -65,10 +65,10 @@ class Cache
 
   check: (item, item2) =>
     return 0 if item is null || item2 is null
-    if item.time_added < item2.time_added or 
-      item.time_updated < item2.time_updated or 
-      item.time_read < item2.time_read or 
-      item.time_favorited < item2.time_favorited
+    if (item.time_added < item2.time_added) or
+      (item.time_updated < item2.time_updated) or 
+      (item.time_read < item2.time_read) or 
+      (item.time_favorited < item2.time_favorited)
       then 1 else 0
 
 module.exports = new Cache

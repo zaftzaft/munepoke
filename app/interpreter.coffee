@@ -1,4 +1,5 @@
 get = require "../lib/get"
+limit = require "../lib/limit"
 
 cmap = {}
 match = (cmd, str) ->
@@ -21,21 +22,46 @@ module.exports = (Munepoke) ->
       c = args[i]
 
       if /^(ge|get)!$/.test c
-        get {count: 10, detailType: "complete"}, (err, data) ->
-          Munepoke.buffer.set data
-        , false
+        get.latestTime (time) ->
+          get {
+            count: 10
+            since: time + 1
+            detailType: "complete"
+          }, (err, data) ->
+            Munepoke.buffer.set data
+            Munepoke.log limit.get().user.remaining
+          , false
+
+        #get {count: 10, detailType: "complete"}, (err, data) ->
+        #  Munepoke.buffer.set data
+        #, false
 
         # scan cmd -> create query
         # get {query},, false
         break
 
       else if match "sy#nc", c
+        i = 0
+        do f = ->
+          get {
+            count: 100
+            offset: i++
+            detailType: "complete"
+          }, (err, data) ->
+            if data.length is 0
+              Munepoke.log "end"
+              return
+            Munepoke.log limit.get().user.remaining
+            setTimeout f, 3000
+          , false
         break
 
       else if match "ge#t", c
         get {}, (err, data) -> Munepoke.buffer.set data
 
       else if match "un#read", c
+        Munepoke.buffer.filter status: "0"
+        Munepoke.buffer.push()
       else if match "im#age", c
       else if match "vi#deo", c
       else if match "fa#vorite", c
@@ -58,7 +84,9 @@ module.exports = (Munepoke) ->
       else if match "ta#g", c
 
       else if match "ar#chive", c
-        get {}, (err, data) -> Munepoke.buffer.set data
+        Munepoke.buffer.filter status: "1"
+        Munepoke.buffer.push()
+        #get {}, (err, data) -> Munepoke.buffer.set data
 
       else if match "ne#w", c
         Munepoke.buffer.sort "new"
@@ -68,6 +96,9 @@ module.exports = (Munepoke) ->
 
       else if match "cl#ear", c
         Munepoke.buffer.emit "clear"
+
+      else if match "fo#cus", c
+        Munepoke.buffer.emit "focus"
 
       break if ++i > args.length
 

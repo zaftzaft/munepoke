@@ -66,7 +66,6 @@ module.exports = (blessed, item) ->
   el.append url
   el.append excerpt
   el.append keymap
-  #el.setContent item.excerpt
 
 
   return el

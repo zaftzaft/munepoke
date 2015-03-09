@@ -36,8 +36,9 @@ status = blessed.Box
 
 screen.append status
 
-Munepoke.log = (mes) ->
+Munepoke.log = (mes, render = true) ->
   status.setContent "" + mes
+  render && screen.render()
 
 require("./interpreter") Munepoke
 require("./article") blessed, screen, Munepoke

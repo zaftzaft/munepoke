@@ -53,3 +53,5 @@ module.exports = (blessed, screen, Munepoke) ->
     screen.render()
     article.show()
     screen.render()
+
+  Munepoke.buffer.on "focus", -> article.focus()

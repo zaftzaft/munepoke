@@ -9,6 +9,9 @@ class LocalBuffer extends EventEmitter
     @push()
     #@emit "change", @localBuffer
 
+  add: (data) =>
+    @localBuffer = [].concat @localBuffer, data
+
   sort: (compare) =>
     newOrder = (a, b) -> b.time_updated - a.time_updated 
     oldOrder = (a, b) -> a.time_updated - b.time_updated 
