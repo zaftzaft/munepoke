@@ -32,10 +32,6 @@ module.exports = (Munepoke) ->
             Munepoke.log limit.get().user.remaining
           , false
 
-        #get {count: 10, detailType: "complete"}, (err, data) ->
-        #  Munepoke.buffer.set data
-        #, false
-
         # scan cmd -> create query
         # get {query},, false
         break
@@ -62,10 +58,25 @@ module.exports = (Munepoke) ->
       else if match "un#read", c
         Munepoke.buffer.filter status: "0"
         Munepoke.buffer.push()
+
+      else if match "ar#chive", c
+        Munepoke.buffer.filter status: "1"
+        Munepoke.buffer.push()
+
       else if match "im#age", c
+        Munepoke.buffer.filter has_image: "1"
+        Munepoke.buffer.push()
+
       else if match "vi#deo", c
+        Munepoke.buffer.filter has_video: "1"
+        Munepoke.buffer.push()
+
       else if match "fa#vorite", c
         Munepoke.buffer.filter favorite: "1"
+        Munepoke.buffer.push()
+
+      else if match "-fa#vorite", c
+        Munepoke.buffer.filter favorite: "0"
         Munepoke.buffer.push()
 
       else if match "ti#tle", c
@@ -80,13 +91,11 @@ module.exports = (Munepoke) ->
         Munepoke.buffer.searchTitle str.replace /"|'|\\/, ""
         Munepoke.buffer.push()
 
+      else if match "-ti#tle", c
+        Munepoke.buffer.filter resolved_title: ""
+        Munepoke.buffer.push()
 
       else if match "ta#g", c
-
-      else if match "ar#chive", c
-        Munepoke.buffer.filter status: "1"
-        Munepoke.buffer.push()
-        #get {}, (err, data) -> Munepoke.buffer.set data
 
       else if match "ne#w", c
         Munepoke.buffer.sort "new"

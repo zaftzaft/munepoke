@@ -1,5 +1,13 @@
 theme = require "./theme"
 
+attr = (item) ->
+  [
+    +item.is_article && "a" || "-"
+    +item.is_index && "x" || "-"
+    +item.has_video && "v" || "-"
+    +item.has_image && "i" || "-"
+  ].join ""
+
 module.exports = (blessed, item) ->
   el = blessed.Box
     bg: theme.detail.bg
@@ -17,6 +25,7 @@ module.exports = (blessed, item) ->
   status.setContent(
     "{yellow-fg}#{item.favorite}{/yellow-fg}
     {green-fg}#{item.status}{/green-fg}
+    #{attr item}
     i[#{Object.keys(item.images || {}).length}]
     v[#{Object.keys(item.videos || {}).length}]
     "
