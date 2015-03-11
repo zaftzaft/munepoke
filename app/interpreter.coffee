@@ -64,7 +64,11 @@ module.exports = (Munepoke) ->
         Munepoke.buffer.push()
 
       else if match "im#age", c
-        Munepoke.buffer.filter has_image: "1"
+        Munepoke.buffer.filter has_image: true, true
+        Munepoke.buffer.push()
+
+      else if match "-im#age", c
+        Munepoke.buffer.filter has_image: false, true
         Munepoke.buffer.push()
 
       else if match "vi#deo", c
@@ -108,6 +112,9 @@ module.exports = (Munepoke) ->
 
       else if match "fo#cus", c
         Munepoke.buffer.emit "focus"
+
+      #else if match "h#elp", c
+
 
       break if ++i > args.length
 

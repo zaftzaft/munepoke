@@ -24,7 +24,7 @@ class LocalBuffer extends EventEmitter
     l = qk.length
     @localBuffer = @localBuffer.filter (buf) ->
       qk.every (k) ->
-        return Boolean buf[k] is query[k] if bool
+        return Boolean(+buf[k]) is query[k] if bool
         buf[k] is query[k]
 
   searchTitle: (str) ->
