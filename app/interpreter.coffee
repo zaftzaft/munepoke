@@ -28,7 +28,7 @@ module.exports = (Munepoke) ->
             since: time + 1
             detailType: "complete"
           }, (err, data) ->
-            Munepoke.buffer.set data
+            Munepoke.buffer.add data
             Munepoke.log limit.get().user.remaining
           , false
 
