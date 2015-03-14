@@ -43,6 +43,8 @@ Munepoke.log = (mes, render = true) ->
 require("./interpreter") Munepoke
 require("./article") blessed, screen, Munepoke
 require("./prompt") blessed, screen, Munepoke
+require("./help") blessed, screen, Munepoke
+
 
 
 screen.render()

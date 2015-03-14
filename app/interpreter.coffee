@@ -113,7 +113,8 @@ module.exports = (Munepoke) ->
       else if match "fo#cus", c
         Munepoke.buffer.emit "focus"
 
-      #else if match "h#elp", c
+      else if match "h#elp", c
+        Munepoke.showHelp()
 
 
       break if ++i > args.length
