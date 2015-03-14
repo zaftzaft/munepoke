@@ -3,6 +3,7 @@ path = require "path"
 
 module.exports = (blessed, screen, Munepoke) ->
   docPath = path.join __dirname, "../doc", "1.txt"
+  cache = null
 
   help = blessed.Box
     bg: "light-black"
@@ -19,12 +20,17 @@ module.exports = (blessed, screen, Munepoke) ->
   screen.append help
 
   Munepoke.showHelp = ->
-    fs.readFile docPath, "utf8", (err, data) ->
-      if err
-        help.setContent "document #{docPath} is Not Found."
-      else
-        help.setContent data
-      screen.render()
+    if cache
+      help.setContent cache
+
+    else
+      fs.readFile docPath, "utf8", (err, data) ->
+        if err
+          help.setContent "document #{docPath} is Not Found."
+        else
+          cache = data
+          help.setContent data
+        screen.render()
 
     help.show()
     help.focus()
