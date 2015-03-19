@@ -1,4 +1,5 @@
 theme = require "./theme"
+openUrl = require "./open-url"
 
 attr = (item) ->
   [
@@ -75,6 +76,9 @@ module.exports = (blessed, item) ->
   el.append url
   el.append excerpt
   el.append keymap
+
+
+  el.key "o", -> openUrl item.resolved_url
 
 
   return el
