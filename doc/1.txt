@@ -4,3 +4,37 @@ this is help document file
 
 :h#elp
 show help
+
+:get!
+Get new items
+
+:sy#nc
+Sync items
+
+:ge#t
+show all cached items
+
+:un#read
+show unread items of buffer
+
+:ar#chive
+show arhive items of buffer
+
+:im#age
+show image items
+:-im#age
+:vi#deo
+:fa#vorite
+:-fa#vorite
+
+:ti#tle <str>
+search title of buffer
+
+:ta#g <name
+
+:ne#w
+sort by new order of buffer
+:ol#d
+
+:list-ta#gs
+show tags
