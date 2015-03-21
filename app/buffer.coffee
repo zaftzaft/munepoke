@@ -32,6 +32,15 @@ class LocalBuffer extends EventEmitter
     @localBuffer = @localBuffer.filter (buf) ->
       exp.test buf.resolved_title
 
+  searchTag: (name) ->
+    @localBuffer = @localBuffer.filter (buf) ->
+      if buf.tags
+        return Object.keys(buf.tags).every (tag) ->
+          tag is name
+      else
+        false
+
+
   push: -> @emit "change", @localBuffer
 
 

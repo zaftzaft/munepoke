@@ -18,6 +18,16 @@ module.exports = (Munepoke) ->
   Munepoke.interpreter = (cmd) ->
     args = cmd.split " "
     i = 0
+
+    nextStr = ->
+      str = ""
+      do f = (t = 0) ->
+        str += " " if t
+        s = args[++i]
+        str += s
+        f 1 if /^"|^'|\\$/.test s
+      return str.replace /"|'|\\/, ""
+
     loop
       c = args[i]
 
@@ -87,15 +97,7 @@ module.exports = (Munepoke) ->
         Munepoke.buffer.push()
 
       else if match "ti#tle", c
-        str = ""
-
-        do f = (t = 0) ->
-          str += " " if t
-          s = args[++i]
-          str += s
-          f 1 if /^"|^'|\\$/. test s
-
-        Munepoke.buffer.searchTitle str.replace /"|'|\\/, ""
+        Munepoke.buffer.searchTitle nextStr()
         Munepoke.buffer.push()
 
       else if match "-ti#tle", c
@@ -103,6 +105,8 @@ module.exports = (Munepoke) ->
         Munepoke.buffer.push()
 
       else if match "ta#g", c
+        Munepoke.buffer.searchTag nextStr()
+        Munepoke.buffer.push()
 
       else if match "ne#w", c
         Munepoke.buffer.sort "new"
