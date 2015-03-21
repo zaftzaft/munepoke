@@ -24,6 +24,7 @@ module.exports = (Munepoke) ->
       if /^(ge|get)!$/.test c
         get.latestTime (time) ->
           get {
+            state: "all"
             count: 10
             since: time + 1
             detailType: "complete"
@@ -40,15 +41,17 @@ module.exports = (Munepoke) ->
         i = 0
         do f = ->
           get {
-            count: 100
+            state: "all"
+            count: 500
             offset: i++
             detailType: "complete"
           }, (err, data) ->
             if data.length is 0
               Munepoke.log "end"
               return
-            Munepoke.log limit.get().user.remaining
-            setTimeout f, 3000
+            Munepoke.buffer.add data
+            Munepoke.log "API Limit #{limit.get().user.remaining} len #{data.length}"
+            setTimeout f, 1000
           , false
         break
 
