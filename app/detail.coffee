@@ -47,6 +47,13 @@ module.exports = (blessed, item) ->
     height: 1
     content: "#{item.resolved_url}"
 
+  tag = blessed.Box
+    bg: theme.detail.tagBg
+    fg: theme.detail.tagFg
+    top: 3
+    height: 1
+    content: "#{Object.keys(item.tags || {}).join ", "}"
+
 
   excerpt = blessed.Box
     bg: theme.detail.excerptBg
@@ -74,6 +81,7 @@ module.exports = (blessed, item) ->
   el.append status
   el.append title
   el.append url
+  el.append tag
   el.append excerpt
   el.append keymap
 

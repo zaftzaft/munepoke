@@ -22,6 +22,8 @@ module.exports =
     titleFg: "light-white"
     urlBg: "black"
     urlFg: "light-blue"
+    tagBg: "black"
+    tagFg: "cyan"
     excerptBg: "black"
     excerptFg: "white"
 
