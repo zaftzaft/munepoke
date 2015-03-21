@@ -110,6 +110,9 @@ module.exports = (Munepoke) ->
       else if match "ol#d", c
         Munepoke.buffer.sort "old"
 
+      else if match "list-ta#gs", c
+        Munepoke.showTags()
+
       else if match "cl#ear", c
         Munepoke.buffer.emit "clear"
 
